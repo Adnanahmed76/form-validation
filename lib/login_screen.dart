@@ -20,7 +20,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
+    //BlocConsumer= Bloclistener+blocbuilder
+    //bloclistener- used for functionality that needs to occur once per state change such as navigation showing a snackbar showing a dialog etc
+    //blocbuildeer- handle the ui in response to state change
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthFailure) {
           ScaffoldMessenger.of(
@@ -32,12 +35,13 @@ class _LoginScreenState extends State<LoginScreen> {
             context,
             MaterialPageRoute(builder: (context) => HomeScreen()),
           );
+          
         }
+       
+        
       },
-      child: BlocBuilder<AuthBloc, AuthState>(
-
-        builder: (context, state) {
-          if(state is AuthLoading){
+      builder: (context,state){
+   if(state is AuthLoading){
             return Center(child: CircularProgressIndicator());
           }
           return Scaffold(
@@ -98,8 +102,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           );
-        },
-      ),
+      },
     );
-  }
+    
+        }
 }
+  
+
